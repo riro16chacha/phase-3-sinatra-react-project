@@ -1,4 +1,3 @@
-#gemfile
 source "https://rubygems.org"
 
 # A DSL for quickly creating web applications
@@ -7,8 +6,7 @@ gem "sinatra", "~> 2.1"
 
 # A fast and simple web server
 # https://github.com/macournoyer/thin
-#gem "thin", "~> 1.8"
-gem "bcrypt"  # For password encryption (user authentication)
+gem "thin", "~> 1.8"
 
 # Rack middleware. Used specifically for parsing the request body into params.
 # https://github.com/rack/rack-contrib
