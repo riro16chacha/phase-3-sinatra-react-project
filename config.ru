@@ -1,3 +1,4 @@
+#config.ru
 require_relative "./config/environment"
 
 # Allow CORS (Cross-Origin Resource Sharing) requests
