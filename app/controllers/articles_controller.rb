@@ -1,9 +1,3 @@
-#app/controllers/articles_controller.rb
-# app/controllers/application_controller.rb
-class ApplicationController < Sinatra::Base
-  set :default_content_type, 'application/json'
-end
-
 # app/controllers/articles_controller.rb
 class ArticlesController < ApplicationController
   get '/articles' do
@@ -65,9 +59,3 @@ class ArticlesController < ApplicationController
   end
 end
 
-# app/models/article.rb
-class Article < ActiveRecord::Base
-  # Validations
-  validates :title, presence: true
-  validates :content, presence: true
-end
