@@ -1,47 +1,73 @@
+#app/controllers/articles_controller.rb
+# app/controllers/application_controller.rb
+class ApplicationController < Sinatra::Base
+  set :default_content_type, 'application/json'
+end
+
+# app/controllers/articles_controller.rb
 class ArticlesController < ApplicationController
-    get '/articles' do
-      articles = Article.all
-      articles.to_json
-    end
-  
-    post '/articles' do
-      article = Article.create(
-        title: params[:title],
-        content: params[:content],
-        image_url: params[:image_url],
-        category_id: params[:category_id]
-      )
+  get '/articles' do
+    articles = Article.all
+    articles.to_json
+  end
+
+  post '/articles' do
+    article = Article.create(
+      title: params[:title],
+      content: params[:content]
+    )
+    if article.valid?
       article.to_json
+    else
+      status 422
+      article.errors.to_json
     end
-  
-    get '/articles/:id' do
-      article = Article.find(params[:id])
+  end
+
+  get '/articles/:id' do
+    article = Article.find_by(id: params[:id])
+    if article
       article.to_json
+    else
+      status 404
+      { message: "Article with ID #{params[:id]} not found" }.to_json
     end
-  
-    put '/articles/:id' do
-      article = Article.find(params[:id])
-      if article.update(
+  end
+
+  put '/articles/:id' do
+    article = Article.find_by(id: params[:id])
+    if article
+      article.update(
         title: params[:title],
-        content: params[:content],
-        image_url: params[:image_url],
-        category_id: params[:category_id]
+        content: params[:content]
       )
+      if article.valid?
         article.to_json
       else
         status 422
-        { message: "Failed to update the article" }.to_json
+        article.errors.to_json
       end
-    end
-  
-    delete '/articles/:id' do
-      article = Article.find(params[:id])
-      if article.destroy
-        { message: "Article with ID #{params[:id]} has been deleted" }.to_json
-      else
-        status 422
-        { message: "Failed to delete the article" }.to_json
-      end
+    else
+      status 404
+      { message: "Article with ID #{params[:id]} not found" }.to_json
     end
   end
-  
+
+  delete '/articles/:id' do
+    article = Article.find_by(id: params[:id])
+    if article
+      article.destroy
+      { message: "Article with ID #{params[:id]} has been deleted" }.to_json
+    else
+      status 404
+      { message: "Article with ID #{params[:id]} not found" }.to_json
+    end
+  end
+end
+
+# app/models/article.rb
+class Article < ActiveRecord::Base
+  # Validations
+  validates :title, presence: true
+  validates :content, presence: true
+end

@@ -1,3 +1,4 @@
+#db/migrate/20230729121048_create_articles.rb
 class CreateArticles < ActiveRecord::Migration[6.1]
   def change
     create_table :articles do |t|
