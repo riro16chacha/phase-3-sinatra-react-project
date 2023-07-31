@@ -45,7 +45,6 @@ GEM
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
-    rake (13.0.6)
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -96,7 +95,6 @@ DEPENDENCIES
   rack-contrib (~> 2.3)
   rack-cors (~> 1.1)
   rack-test (~> 1.1)
-  rake (~> 13.0)
   require_all (~> 3.0)
   rerun
   rspec (~> 3.10)
